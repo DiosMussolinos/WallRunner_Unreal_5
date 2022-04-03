@@ -122,12 +122,15 @@ void AWallRunCharacter::Tick(float DeltaTime)
 	{
 		if (targets.Num() > 0)
 		{
+			//Allow camera to move on its own
 			FirstPersonCameraComponent->bUsePawnControlRotation = false;
 
+			//Calculate direction
 			FVector dir = (targets[0]->GetActorLocation() - GetActorLocation());
 			dir = FVector(dir.X, dir.Y, 0);
 			FRotator Rot = FRotationMatrix::MakeFromX(dir).Rotator();
 
+			//Change Rotation
 			FaceRotation(Rot, DeltaTime);
 		}
 		else
@@ -359,6 +362,7 @@ void AWallRunCharacter::Jump()
 
 				if (wall)
 				{
+					//TODO: Differentiate from entering left or right, and change -1 to 1 depending on it.
 					LaunchCharacter(wall->GetActorForwardVector() * -1 * ImpulseForce, true, true);
 				}
 
@@ -366,7 +370,6 @@ void AWallRunCharacter::Jump()
 
 
 				#pragma region Dash 02 - Downside -> Look at the wall
-
 				/*
 				FHitResult Hit;
 				FVector Start = FirstPersonCameraComponent->GetComponentLocation();
@@ -379,8 +382,6 @@ void AWallRunCharacter::Jump()
 
 				bool isHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, ColParam);
 
-				UE_LOG(LogTemp, Warning, TEXT("00"));
-
 				if (Hit.GetActor())
 				{
 					if (Hit.GetActor()->IsA<ARunnableWall>())
@@ -389,11 +390,10 @@ void AWallRunCharacter::Jump()
 
 						if (FVector::Parallel(Wall->GetActorRightVector(), Hit.Normal, 90.f))
 						{
-							UE_LOG(LogTemp, Warning, TEXT("03"));
+
+							//To be completed, it should 
 							LaunchCharacter(Foward * ImpulseForce, true, true);
 						}
-						UE_LOG(LogTemp, Warning, TEXT("04"));
-						LaunchCharacter(Foward * ImpulseForce, true, true);
 					}
 				}
 				*/
@@ -444,5 +444,5 @@ void AWallRunCharacter::Wall()
 
 void AWallRunCharacter::ShowOthers()
 {
-	//TODO:
+	//TODO: 
 }

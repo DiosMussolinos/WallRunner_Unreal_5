@@ -4,7 +4,7 @@
 #include "RunnerController.h"
 #include "WallRunCharacter.h"
 
-//Get Pawn
+//Get Pawn to create the Widget
 void ARunnerController::OnPossess(APawn* pawn)
 {
 	Super::OnPossess(pawn);
